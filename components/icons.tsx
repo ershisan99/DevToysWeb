@@ -26,6 +26,7 @@ export const Key = memo(icons.Key, equal);
 export const Link = memo(icons.Link2, equal);
 export const Maximize = memo(icons.Maximize2, equal);
 export const Minimize = memo(icons.Minimize2, equal);
+export const Menu = memo(icons.Menu, equal);
 export const PackagePlus = memo(icons.PackagePlus, equal);
 export const Paintbrush = memo(icons.Paintbrush2, equal);
 export const Rows = memo(icons.Rows, equal);
