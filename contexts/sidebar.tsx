@@ -19,7 +19,7 @@ export const useSetSidebarStatus = () => useContext(SetSidebarContext);
 export const SidebarProvider = ({ children }: PropsWithChildren) => {
   const cookies = useCookies();
 
-  const sidebarStatus = cookies.get(SIDEBAR_COOKIE_NAME) as SidebarStatus;
+  const sidebarStatus = cookies.get(SIDEBAR_COOKIE_NAME) ?? (SidebarStatus.Open as SidebarStatus);
   const setSidebarStatus = useCallback(
     (newStatus: SidebarStatus) => {
       cookies.set(SIDEBAR_COOKIE_NAME, newStatus);
