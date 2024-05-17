@@ -1,15 +1,20 @@
 import "@/styles/globals.css";
 
 import { Metadata } from "next";
+import { CookiesProvider } from "next-client-cookies/server";
 
 import { siteConfig } from "@/config/site";
 import { fontMono, fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/style";
+import { ClientLayout } from "@/components/client-layout";
 import { Sidebar } from "@/components/sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SearchTextProvider } from "@/contexts/search-text";
+import { SidebarProvider } from "@/contexts/sidebar";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -54,16 +59,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontMono.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange>
-          <SearchTextProvider>
-            <div className="grid h-full grid-cols-[18rem_1fr] grid-rows-[3.5rem_1fr]">
-              <SiteHeader className="col-span-full" />
-              <Sidebar />
-              <main className="overflow-y-auto rounded-tl-md border bg-page p-12">{children}</main>
-            </div>
-            <TailwindIndicator />
-          </SearchTextProvider>
-        </ThemeProvider>
+        <CookiesProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange>
+            <SearchTextProvider>
+              <SidebarProvider>
+                <ClientLayout>
+                  <SiteHeader className="col-span-full" />
+                  <Sidebar />
+                  <main className="overflow-y-auto rounded-tl-md border bg-page p-12">
+                    {children}
+                  </main>
+                </ClientLayout>
+                <TailwindIndicator />
+              </SidebarProvider>
+            </SearchTextProvider>
+          </ThemeProvider>
+        </CookiesProvider>
       </body>
     </html>
   );

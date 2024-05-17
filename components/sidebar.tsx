@@ -7,11 +7,11 @@ import { ToolGroups } from "./sidebar/tool-groups";
 
 export function Sidebar() {
   return (
-    <nav className="flex flex-col overflow-y-auto">
+    <nav className="flex flex-col overflow-y-auto overflow-x-hidden">
       <div className="mt-px px-4">
         <SearchBar />
       </div>
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden">
         <div className="mt-2 p-2">
           <AllTools />
         </div>

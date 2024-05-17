@@ -18,7 +18,7 @@ function RawToolLink({ Icon, shortTitle: title, href, onClick, highlight, groupe
   return (
     <Link
       className={cn(
-        "flex h-10 items-center gap-3 rounded",
+        "flex h-10 items-center gap-3 whitespace-nowrap rounded",
         highlight === "both" && "bg-accent",
         grouped && "pl-8 -outline-offset-1", // -outline-offset-1: ugly hack for Chrome outlines
         "hover:bg-accent"
