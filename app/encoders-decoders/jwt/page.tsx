@@ -49,11 +49,9 @@ export default function Page() {
       </PageSection>
       <div className="flex flex-col gap-3">
         <PageSection title="Header" control={heaederControl}>
-          {/* @ts-expect-error react 19 beta error */}
           <Editor height={180} language="json" value={header} options={{ readOnly: true }} />
         </PageSection>
         <PageSection title="Payload" control={payloadControl}>
-          {/* @ts-expect-error react 19 beta error */}
           <Editor height={180} language="json" value={payload} options={{ readOnly: true }} />
         </PageSection>
       </div>

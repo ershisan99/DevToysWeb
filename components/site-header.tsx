@@ -24,9 +24,9 @@ export function SiteHeader({ className }: Props) {
           className="flex items-center rounded p-1.5 hover:bg-accent"
           onClick={toggleSidebar}
         >
+          <span className="sr-only">Toggle sidebar</span>
           <Menu />
         </button>
-        {/* @ts-expect-error react 19 beta error */}
         <Link className="text-lg" href="/">
           {siteConfig.name}
         </Link>

@@ -15,7 +15,6 @@ type Props = Pick<Tool, "Icon" | "shortTitle"> &
 // FIXME: css outline messed up
 export function ToolLink({ Icon, shortTitle: title, href, onClick, highlight, grouped }: Props) {
   return (
-    // @ts-expect-error react 19 beta error
     <Link
       className={cn(
         "flex h-10 items-center gap-3 whitespace-nowrap rounded",

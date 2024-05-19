@@ -39,8 +39,6 @@ export default function Page() {
 
   const clearInput = () => setInput("");
 
-  // @ts-expect-error react 19 beta error
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const onJsonChange: EditorProps["onChange"] = value => setInput(value ?? "");
 
   const indentationConfig = (
@@ -89,11 +87,9 @@ export default function Page() {
       </PageSection>
       <div className="flex flex-1 flex-col gap-x-4 gap-y-5 lg:flex-row">
         <PageSection className="min-h-[200px] flex-1" title="Input" control={inputControl}>
-          {/* @ts-expect-error react 19 beta error */}
           <Editor language="json" value={input} onChange={onJsonChange} />
         </PageSection>
         <PageSection className="min-h-[200px] flex-1" title="Output" control={outputControl}>
-          {/* @ts-expect-error react 19 beta error */}
           <Editor language="json" value={output} options={{ readOnly: true }} />
         </PageSection>
       </div>

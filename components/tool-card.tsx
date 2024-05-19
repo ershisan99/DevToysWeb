@@ -6,7 +6,6 @@ export type ToolCardProps = Pick<Tool, "Icon" | "longTitle" | "description" | "h
 
 export function ToolCard({ Icon, longTitle, description, href }: ToolCardProps) {
   return (
-    // @ts-expect-error react 19 beta error
     <Link className="rounded" {...{ href }}>
       <div className="group flex h-80 w-44 flex-col items-center gap-5 overflow-hidden rounded border bg-card p-5 text-card-foreground hover:bg-card-hover">
         <div className="flex flex-col p-5">

@@ -91,7 +91,6 @@ export default function Page() {
           >
             <Panel maxSize={HORIZONTAL_PANEL_MAX_SIZE}>
               <PageSection className="h-full" title="Old text" control={input1Control}>
-                {/* @ts-expect-error react 19 beta error */}
                 <Editor value={input1} onChange={setInput1} />
               </PageSection>
             </Panel>
@@ -99,7 +98,6 @@ export default function Page() {
 
             <Panel maxSize={HORIZONTAL_PANEL_MAX_SIZE}>
               <PageSection className="h-full" title="New text" control={input2Control}>
-                {/* @ts-expect-error react 19 beta error */}
                 <Editor value={input2} onChange={setInput2} />
               </PageSection>
             </Panel>
@@ -108,14 +106,9 @@ export default function Page() {
         <PanelResizeHandle direction="horizontal" className={hiddenInFullHeightMode} />
         <Panel maxSize={diffPanelMaxSize}>
           <PageSection className="h-full" title="Difference" control={diffControl}>
-            {/* @ts-expect-error react 19 beta error */}
             <DiffEditor
-              // @ts-expect-error react 19 beta error
               original={input1}
-              // @ts-expect-error react 19 beta error
               modified={input2}
-              // @ts-expect-error react 19 beta error
-
               options={{
                 readOnly: true,
                 renderSideBySide: !inlineMode,
