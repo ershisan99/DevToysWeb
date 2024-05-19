@@ -87,5 +87,11 @@
     "serve": "^14.2.1",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@beta",
+      "@types/react-dom": "npm:types-react-dom@beta"
+    }
   }
 }
