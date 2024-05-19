@@ -3,19 +3,17 @@
 import React, { PropsWithChildren } from "react";
 
 import { cn } from "@/lib/style";
-import { SidebarStatus, useSidebarStatus } from "@/contexts/sidebar";
+import { useSidebar } from "@/hooks/use-sidebar";
 
 export function ClientLayout({ children }: PropsWithChildren) {
-  const sidebarStatus = useSidebarStatus();
-  const isOpen = sidebarStatus === SidebarStatus.Open;
-  const isClosed = sidebarStatus === SidebarStatus.Closed;
+  const { isSidebarOpen, isLoading } = useSidebar();
+  const isOpen = isSidebarOpen && !isLoading;
 
   return (
     <div
       className={cn(
         "grid h-full grid-rows-[3.5rem_1fr] transition-all",
-        isOpen && "grid-cols-[18rem_1fr]",
-        isClosed && "grid-cols-[0_1fr]"
+        isOpen ? "grid-cols-[18rem_1fr]" : "grid-cols-[0_1fr]"
       )}
     >
       {children}

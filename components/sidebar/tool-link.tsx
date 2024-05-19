@@ -1,6 +1,5 @@
 "use client";
 
-import { memo } from "react";
 import Link, { LinkProps } from "next/link";
 
 import { Tool } from "@/config/tools";
@@ -14,8 +13,9 @@ type Props = Pick<Tool, "Icon" | "shortTitle"> &
   };
 
 // FIXME: css outline messed up
-function RawToolLink({ Icon, shortTitle: title, href, onClick, highlight, grouped }: Props) {
+export function ToolLink({ Icon, shortTitle: title, href, onClick, highlight, grouped }: Props) {
   return (
+    // @ts-expect-error react 19 beta error
     <Link
       className={cn(
         "flex h-10 items-center gap-3 whitespace-nowrap rounded",
@@ -35,5 +35,3 @@ function RawToolLink({ Icon, shortTitle: title, href, onClick, highlight, groupe
     </Link>
   );
 }
-
-export const ToolLink = memo(RawToolLink);

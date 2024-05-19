@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import { usePathname } from "next/navigation";
 import * as Accordion from "@radix-ui/react-accordion";
 
@@ -18,7 +18,7 @@ export function ToolGroup({ Icon, title, href, tools, isOpend }: Props) {
   const pathname = usePathname();
   const triggerRef = useRef<HTMLButtonElement>(null);
 
-  const onClick = useCallback(() => triggerRef.current?.click(), []);
+  const onClick = () => triggerRef.current?.click();
 
   return (
     <Accordion.AccordionItem value={href}>
@@ -40,13 +40,13 @@ export function ToolGroup({ Icon, title, href, tools, isOpend }: Props) {
           <Accordion.Trigger
             ref={triggerRef}
             className={cn(
-              "absolute right-0 flex h-10 w-10 items-center justify-center rounded transition-all duration-0",
+              "absolute right-0 flex size-10 items-center justify-center rounded transition-all duration-0",
               "hover:bg-accent",
               "[&[data-state=open]>svg]:rotate-180"
             )}
             aria-label="toggle open/close state of the tool group"
           >
-            <icons.ChevronDown className="h-4 w-4 transition-transform duration-200" />
+            <icons.ChevronDown className="size-4 transition-transform duration-200" />
           </Accordion.Trigger>
         </div>
       </Accordion.Header>

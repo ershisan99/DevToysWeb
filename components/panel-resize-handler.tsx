@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useMemo } from "react";
+import { ComponentPropsWithoutRef } from "react";
 import { PanelResizeHandle as PanelResizeHandlePrimitive } from "react-resizable-panels";
 
 import { cn } from "@/lib/style";
@@ -12,19 +12,15 @@ export const PanelResizeHandle = ({ direction = "vertical", className, ...props 
   const isVertical = direction === "vertical";
   const isHorizontal = direction === "horizontal";
 
-  const classNames = useMemo(
-    () =>
-      cn(
-        isVertical && "w-4",
-        isHorizontal && "h-4",
-        "flex items-center justify-center",
-        "data-[resize-handle-state=drag]:bg-neutral-200",
-        "dark:data-[resize-handle-state=drag]:bg-neutral-600",
-        "data-[resize-handle-state=hover]:bg-neutral-300",
-        "dark:data-[resize-handle-state=hover]:bg-neutral-700",
-        className
-      ),
-    [isVertical, isHorizontal, className]
+  const classNames = cn(
+    isVertical && "w-4",
+    isHorizontal && "h-4",
+    "flex items-center justify-center",
+    "data-[resize-handle-state=drag]:bg-neutral-200",
+    "dark:data-[resize-handle-state=drag]:bg-neutral-600",
+    "data-[resize-handle-state=hover]:bg-neutral-300",
+    "dark:data-[resize-handle-state=hover]:bg-neutral-700",
+    className
   );
 
   return (

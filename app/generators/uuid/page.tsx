@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { range } from "fp-ts/NonEmptyArray";
 
 import { toolGroups } from "@/config/tools";
@@ -41,21 +41,21 @@ export default function Page() {
 
   const uuidsString = uuids.join("\n");
 
-  const clearUuids = useCallback(() => setUuids([]), []);
+  const clearUuids = () => setUuids([]);
 
-  const onUuidVersionChange: NonNullable<Select.Props["onValueChange"]> = useCallback(value => {
+  const onUuidVersionChange: NonNullable<Select.Props["onValueChange"]> = value => {
     if (isUuidVersion(value)) {
       setUuidVersion(value);
     }
-  }, []);
+  };
 
-  const onGeneratesChange: NonNullable<InputProps["onChange"]> = useCallback(e => {
+  const onGeneratesChange: NonNullable<InputProps["onChange"]> = e => {
     const newGenerates = Number(e.currentTarget.value);
 
     if (newGenerates >= 1 && newGenerates <= 1000) {
       setGenerates(newGenerates);
     }
-  }, []);
+  };
 
   const onGenerateClick = () => {
     const newUuids = range(1, generates).map(_ => uuid(uuidVersion, hyphens, uppercase));
@@ -136,7 +136,7 @@ export default function Page() {
         </div>
       </PageSection>
       <PageSection className="-mt-3" title="UUID(s)" control={uuidsControl}>
-        <Textarea {...{ ref }} value={uuidsString} rows={10} readOnly />
+        <Textarea ref={ref} value={uuidsString} rows={10} readOnly />
       </PageSection>
     </PageRootSection>
   );

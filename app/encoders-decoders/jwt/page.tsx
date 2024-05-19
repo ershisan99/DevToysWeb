@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import { toolGroups } from "@/config/tools";
 import { decode } from "@/lib/jwt";
@@ -20,7 +20,7 @@ export default function Page() {
   const header = h.map(x => JSON.stringify(x, null, 2)).unwrapOr("");
   const payload = p.map(x => JSON.stringify(x, null, 2)).unwrapOr("");
 
-  const clearJwt = useCallback(() => setJwt(""), []);
+  const clearJwt = () => setJwt("");
 
   const onJwtChange: TextareaProps["onChange"] = e => setJwt(e.currentTarget.value);
 
@@ -49,9 +49,11 @@ export default function Page() {
       </PageSection>
       <div className="flex flex-col gap-3">
         <PageSection title="Header" control={heaederControl}>
+          {/* @ts-expect-error react 19 beta error */}
           <Editor height={180} language="json" value={header} options={{ readOnly: true }} />
         </PageSection>
         <PageSection title="Payload" control={payloadControl}>
+          {/* @ts-expect-error react 19 beta error */}
           <Editor height={180} language="json" value={payload} options={{ readOnly: true }} />
         </PageSection>
       </div>

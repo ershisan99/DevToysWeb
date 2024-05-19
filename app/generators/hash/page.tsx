@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import createHash from "create-hash";
 
 import { toolGroups } from "@/config/tools";
@@ -29,7 +29,7 @@ export default function Page() {
   const sha256 = uppercase ? newSha256.toUpperCase() : newSha256;
   const sha512 = uppercase ? newSha512.toUpperCase() : newSha512;
 
-  const clearInput = useCallback(() => setInput(""), []);
+  const clearInput = () => setInput("");
 
   const onInputChange: TextareaProps["onChange"] = e => setInput(e.currentTarget.value);
 

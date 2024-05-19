@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import { toolGroups } from "@/config/tools";
 import { safeJsonParse } from "@/lib/json";
@@ -21,15 +21,26 @@ const indentations = {
   tab: "\t",
 };
 
+const INDENTATION = {
+  TWO_SPACES: "two",
+  FOUR_SPACES: "four",
+  TAB: "tab",
+  ZERO: "zero",
+} as const;
+
+type Indentation = (typeof INDENTATION)[keyof typeof INDENTATION];
+
 export default function Page() {
-  const [indentation, setIndentation] = useState(indentations.two);
+  const [indentation, setIndentation] = useState<Indentation>(INDENTATION.TWO_SPACES);
   const [input, setInput] = useState('{\n"foo":"bar"\n}');
 
   const parsed = safeJsonParse(input);
-  const output = parsed.map(x => JSON.stringify(x, null, indentation)).unwrapOr("");
+  const output = parsed.map(x => JSON.stringify(x, null, indentations[indentation])).unwrapOr("");
 
-  const clearInput = useCallback(() => setInput(""), []);
+  const clearInput = () => setInput("");
 
+  // @ts-expect-error react 19 beta error
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const onJsonChange: EditorProps["onChange"] = value => setInput(value ?? "");
 
   const indentationConfig = (
@@ -37,7 +48,10 @@ export default function Page() {
       icon={<icons.Space size={24} className="-translate-y-1.5" />}
       title="Indentation"
       control={
-        <Select.Root value={indentation} onValueChange={setIndentation}>
+        <Select.Root
+          value={indentation}
+          onValueChange={value => setIndentation(value as Indentation)}
+        >
           <Select.Trigger
             className="w-28"
             aria-label="toggle open/close state of indentation selection"
@@ -45,10 +59,10 @@ export default function Page() {
             <Select.Value placeholder={indentation} />
           </Select.Trigger>
           <Select.Content>
-            <Select.Item value={indentations.two}>2 spaces</Select.Item>
-            <Select.Item value={indentations.four}>4 spaces</Select.Item>
-            <Select.Item value={indentations.tab}>1 tab</Select.Item>
-            <Select.Item value={indentations.zero}>minified</Select.Item>
+            <Select.Item value={INDENTATION.TWO_SPACES}>2 spaces</Select.Item>
+            <Select.Item value={INDENTATION.FOUR_SPACES}>4 spaces</Select.Item>
+            <Select.Item value={INDENTATION.TAB}>1 tab</Select.Item>
+            <Select.Item value={INDENTATION.ZERO}>minified</Select.Item>
           </Select.Content>
         </Select.Root>
       }
@@ -75,9 +89,11 @@ export default function Page() {
       </PageSection>
       <div className="flex flex-1 flex-col gap-x-4 gap-y-5 lg:flex-row">
         <PageSection className="min-h-[200px] flex-1" title="Input" control={inputControl}>
+          {/* @ts-expect-error react 19 beta error */}
           <Editor language="json" value={input} onChange={onJsonChange} />
         </PageSection>
         <PageSection className="min-h-[200px] flex-1" title="Output" control={outputControl}>
+          {/* @ts-expect-error react 19 beta error */}
           <Editor language="json" value={output} options={{ readOnly: true }} />
         </PageSection>
       </div>

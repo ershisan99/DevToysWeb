@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import yaml from "js-yaml";
 
 import { toolGroups } from "@/config/tools";
@@ -28,7 +28,7 @@ export default function Page() {
     yaml: "foo: bar",
   });
 
-  const setFormByJson = useCallback((text: string) => {
+  const setFormByJson = (text: string) => {
     setForm(prev => ({
       ...prev,
       json: text,
@@ -36,9 +36,9 @@ export default function Page() {
         .map(x => yaml.dump(x, { indent: prev.indentation.length, quotingType: '"' }))
         .unwrapOr(""),
     }));
-  }, []);
+  };
 
-  const setFormByYaml = useCallback((text: string) => {
+  const setFormByYaml = (text: string) => {
     setForm(prev => ({
       ...prev,
       json: safeYamlParse(text)
@@ -46,15 +46,15 @@ export default function Page() {
         .unwrapOr(""),
       yaml: text,
     }));
-  }, []);
+  };
 
-  const clearBoth = useCallback(() => {
+  const clearBoth = () => {
     setForm(prev => ({
       ...prev,
       json: "",
       yaml: "",
     }));
-  }, []);
+  };
 
   const onIndentationChange: Select.Props["onValueChange"] = value => {
     const jsonYaml = safeJsonParse(form.json)
@@ -73,7 +73,11 @@ export default function Page() {
     });
   };
 
+  // @ts-expect-error react 19 beta error
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const onJsonChange: EditorProps["onChange"] = value => setFormByJson(value ?? "");
+  // @ts-expect-error react 19 beta error
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const onYamlChange: EditorProps["onChange"] = value => setFormByYaml(value ?? "");
 
   const indentationConfig = (
@@ -133,9 +137,11 @@ export default function Page() {
       </PageSection>
       <div className="flex flex-1 flex-col gap-x-4 gap-y-5 lg:flex-row">
         <PageSection className="min-h-[200px] flex-1" title="Json" control={jsonControl}>
+          {/* @ts-expect-error react 19 beta error */}
           <Editor language="json" value={form.json} onChange={onJsonChange} />
         </PageSection>
         <PageSection className="min-h-[200px] flex-1" title="Yaml" control={yamlControl}>
+          {/* @ts-expect-error react 19 beta error */}
           <Editor language="yaml" value={form.yaml} onChange={onYamlChange} />
         </PageSection>
       </div>
